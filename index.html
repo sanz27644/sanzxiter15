@@ -1,0 +1,675 @@
+<!DOCTYPE html><html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanzxiterOfficial - Toko Online</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');body {
+        margin: 0;
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+    }
+    header {
+        background-color: #000000;
+        padding: 20px;
+        text-align: center;
+        color: white;
+    }
+    nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .cart-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007aff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 999;
+    }
+    main {
+        padding: 40px;
+        text-align: center;
+    }
+    .product {
+        display: inline-block;
+        background-color: #f2f2f7;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 20px;
+        width: 220px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    .product:hover {
+        transform: translateY(-5px);
+    }
+    .product img {
+        width: 100%;
+        border-radius: 15px;
+    }
+    .product h3, .product p {
+        margin: 10px 0;
+    }
+    .product button {
+        background: #007aff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+    #cart {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        max-height: 400px;
+        background-color: #ffffff;
+        color: #000000;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        border-radius: 20px;
+        display: none;
+        flex-direction: column;
+        overflow-y: auto;
+        z-index: 1000;
+    }
+    #cart h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    #cart-items li {
+        border-bottom: 1px solid #eee;
+        padding: 8px 0;
+        list-style: none;
+        font-size: 14px;
+        text-align: left;
+    }
+    #cart p {
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: left;
+    }
+    #cart button {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #007aff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .animated-text {
+        font-size: 28px;
+        font-weight: 600;
+        color: #007aff;
+        height: 35px;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 2px solid #007aff;
+        animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+        width: 0;
+        margin-bottom: 20px;
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    @keyframes blink {
+        from, to { border-color: transparent; }
+        50% { border-color: #007aff; }
+    }
+
+    footer {
+        background-color: #000000;
+        text-align: center;
+        padding: 10px;
+        color: white;
+        width: 100%;
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1>SanzxiterOfficial</h1>
+        <nav>
+            <a href="#beranda">Beranda</a>
+            <a href="#produk">Produk</a>
+            <a href="#tentang">Tentang</a>
+        </nav>
+        <button class="cart-button" onclick="toggleCart()">🛒 Keranjang (<span id="cart-count">0</span>)</button>
+    </header><main>
+    <section id="beranda">
+        <h2 class="animated-text">Selamat Datang di Toko Online Sanzxiter</h2>
+        <p>Temukan produk eksklusif dan original hanya di sini.</p>
+    </section>
+
+    <section id="produk">
+        <h2>Produk Kami</h2>
+        <div class="product">
+            <img src="https://via.placeholder.com/200" alt="Produk 1">
+            <h3>Nama Produk 1</h3>
+            <p>Rp 100.000</p>
+            <button onclick="addToCart('Nama Produk 1', 100000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/200" alt="Produk 2">
+            <h3>Nama Produk 2</h3>
+            <p>Rp 150.000</p>
+            <button onclick="addToCart('Nama Produk 2', 150000)">Tambah ke Keranjang</button>
+        </div>
+    </section>
+
+    <section id="tentang">
+        <h2>Tentang Kami</h2>
+        <p>SanzxiterOfficial adalah toko online resmi yang menyediakan produk pilihan eksklusif dari brand Sanzxiter. Kami berkomitmen untuk memberikan kualitas terbaik dan layanan terbaik bagi pelanggan.</p>
+    </section>
+</main>
+
+<div id="cart">
+    <h2>Keranjang</h2>
+    <ul id="cart-items"></ul>
+    <p>Total: Rp <span id="cart-total">0</span></p>
+    <button onclick="checkout()">Checkout</button>
+</div>
+
+<footer>
+    <p>&copy; 2025 SanzxiterOfficial. All rights reserved.</p>
+</footer>
+
+<script>
+    const cart = [];
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+
+        cartItems.innerHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - Rp ${item.price.toLocaleString()}`;
+            cartItems.appendChild(li);
+            total += item.price;
+        });
+
+        cartTotal.textContent = total.toLocaleString();
+        cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() {
+        const cartDiv = document.getElementById('cart');
+        cartDiv.style.display = cartDiv.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function checkout() {
+        alert('Checkout berhasil! (Simulasi)');
+        cart.length = 0;
+        updateCart();
+        toggleCart();
+    }
+</script>
+
+</body>
+</html><!DOCTYPE html><html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanzxiterOfficial - Toko Online</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');body {
+        margin: 0;
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+    }
+    header {
+        background-color: #000000;
+        padding: 20px;
+        text-align: center;
+        color: white;
+    }
+    nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .cart-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #007aff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+        padding: 40px;
+        text-align: center;
+    }
+    .product {
+        display: inline-block;
+        background-color: #f2f2f7;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 20px;
+        width: 220px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    .product:hover {
+        transform: translateY(-5px);
+    }
+    .product img {
+        width: 100%;
+        border-radius: 15px;
+    }
+    .product h3, .product p {
+        margin: 10px 0;
+    }
+    .product button {
+        background: #007aff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+    #cart {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 300px;
+        height: 100%;
+        background-color: #1c1c1e;
+        color: white;
+        padding: 20px;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+        display: none;
+        flex-direction: column;
+    }
+    .animated-text {
+        font-size: 28px;
+        font-weight: 600;
+        color: #007aff;
+        height: 35px;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 2px solid #007aff;
+        animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+        width: 0;
+        margin-bottom: 20px;
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    @keyframes blink {
+        from, to { border-color: transparent; }
+        50% { border-color: #007aff; }
+    }
+
+    footer {
+        background-color: #000000;
+        text-align: center;
+        padding: 10px;
+        color: white;
+        width: 100%;
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1>SanzxiterOfficial</h1>
+        <nav>
+            <a href="#beranda">Beranda</a>
+            <a href="#produk">Produk</a>
+            <a href="#tentang">Tentang</a>
+        </nav>
+        <button class="cart-button" onclick="toggleCart()">🛒 Keranjang (<span id="cart-count">0</span>)</button>
+    </header><main>
+    <section id="beranda">
+        <h2 class="animated-text">Selamat Datang di Toko Online Sanzxiter</h2>
+        <p>Temukan produk eksklusif dan original hanya di sini.</p>
+    </section>
+
+    <section id="produk">
+        <h2>Produk Kami</h2>
+        <div class="product">
+            <img src="https://via.placeholder.com/200" alt="Produk 1">
+            <h3>Nama Produk 1</h3>
+            <p>Rp 100.000</p>
+            <button onclick="addToCart('Nama Produk 1', 100000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/200" alt="Produk 2">
+            <h3>Nama Produk 2</h3>
+            <p>Rp 150.000</p>
+            <button onclick="addToCart('Nama Produk 2', 150000)">Tambah ke Keranjang</button>
+        </div>
+    </section>
+
+    <section id="tentang">
+        <h2>Tentang Kami</h2>
+        <p>SanzxiterOfficial adalah toko online resmi yang menyediakan produk pilihan eksklusif dari brand Sanzxiter. Kami berkomitmen untuk memberikan kualitas terbaik dan layanan terbaik bagi pelanggan.</p>
+    </section>
+</main>
+
+<div id="cart">
+    <h2>Keranjang Belanja</h2>
+    <ul id="cart-items"></ul>
+    <p>Total: Rp <span id="cart-total">0</span></p>
+    <bu<!DOCTYPE html><html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SanzxiterOfficial - Toko Online</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');body {
+        margin: 0;
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+    }
+    header {
+        background-color: #000000;
+        padding: 20px;
+        text-align: center;
+        color: white;
+    }
+    nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .cart-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #007aff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    main {
+        padding: 40px;
+        text-align: center;
+    }
+    .product {
+        display: inline-block;
+        background-color: #f2f2f7;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 20px;
+        width: 220px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    .product:hover {
+        transform: translateY(-5px);
+    }
+    .product img {
+        width: 100%;
+        border-radius: 15px;
+    }
+    .product h3, .product p {
+        margin: 10px 0;
+    }
+    .product button {
+        background: #007aff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+    #cart {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 320px;
+        height: 100%;
+        background-color: #ffffff;
+        color: #000000;
+        padding: 20px;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+        display: none;
+        flex-direction: column;
+        overflow-y: auto;
+        border-left: 1px solid #ccc;
+    }
+    #cart h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    #cart-items li {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+        list-style: none;
+        font-size: 15px;
+        text-align: left;
+    }
+    #cart p {
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: left;
+    }
+    #cart button {
+        margin-top: 15px;
+        padding: 12px;
+        background-color: #007aff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .animated-text {
+        font-size: 28px;
+        font-weight: 600;
+        color: #007aff;
+        height: 35px;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 2px solid #007aff;
+        animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+        width: 0;
+        margin-bottom: 20px;
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
+    @keyframes blink {
+        from, to { border-color: transparent; }
+        50% { border-color: #007aff; }
+    }
+
+    footer {
+        background-color: #000000;
+        text-align: center;
+        padding: 10px;
+        color: white;
+        width: 100%;
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1>SanzxiterOfficial</h1>
+        <nav>
+            <a href="#beranda">Beranda</a>
+            <a href="#produk">Produk</a>
+            <a href="#tentang">Tentang</a>
+        </nav>
+        <button class="cart-button" onclick="toggleCart()">🛒 Keranjang (<span id="cart-count">0</span>)</button>
+    </header><main>
+    <section id="beranda">
+        <h2 class="animated-text">Selamat Datang di Toko Online Sanzxiter</h2>
+        <p>Temukan produk eksklusif dan original hanya di sini.</p>
+    </section>
+
+    <section id="produk">
+        <h2>Produk Kami</h2>
+        <div class="product">
+            <img src="https://via.placeholder.com/200" alt="Produk 1">
+            <h3>Nama Produk 1</h3>
+            <p>Rp 100.000</p>
+            <button onclick="addToCart('Nama Produk 1', 100000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/200" alt="Produk 2">
+            <h3>Nama Produk 2</h3>
+            <p>Rp 150.000</p>
+            <button onclick="addToCart('Nama Produk 2', 150000)">Tambah ke Keranjang</button>
+        </div>
+    </section>
+
+    <section id="tentang">
+        <h2>Tentang Kami</h2>
+        <p>SanzxiterOfficial adalah toko online resmi yang menyediakan produk pilihan eksklusif dari brand Sanzxiter. Kami berkomitmen untuk memberikan kualitas terbaik dan layanan terbaik bagi pelanggan.</p>
+    </section>
+</main>
+
+<div id="cart">
+    <h2>Keranjang Belanja</h2>
+    <ul id="cart-items"></ul>
+    <p>Total: Rp <span id="cart-total">0</span></p>
+    <button onclick="checkout()">Checkout</button>
+</div>
+
+<footer>
+    <p>&copy; 2025 SanzxiterOfficial. All rights reserved.</p>
+</footer>
+
+<script>
+    const cart = [];
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+
+        cartItems.innerHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - Rp ${item.price.toLocaleString()}`;
+            cartItems.appendChild(li);
+            total += item.price;
+        });
+
+        cartTotal.textContent = total.toLocaleString();
+        cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() {
+        const cartDiv = document.getElementById('cart');
+        cartDiv.style.display = cartDiv.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function checkout() {
+        alert('Checkout berhasil! (Simulasi)');
+        cart.length = 0;
+        updateCart();
+        toggleCart();
+    }
+</script>
+
+</body>
+</html>tton onclick="checkout()">Checkout</button>
+</div>
+
+<footer>
+    <p>&copy; 2025 SanzxiterOfficial. All rights reserved.</p>
+</footer>
+
+<script>
+    const cart = [];
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+
+        cartItems.innerHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - Rp ${item.price.toLocaleString()}`;
+            cartItems.appendChild(li);
+            total += item.price;
+        });
+
+        cartTotal.textContent = total.toLocaleString();
+        cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() {
+        const cartDiv = document.getElementById('cart');
+        cartDiv.style.display = cartDiv.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function checkout() {
+        alert('Checkout berhasil! (Simulasi)');
+        cart.length = 0;
+        updateCart();
+        toggleCart();
+    }
+</script>
+
+</body>
+</html>
