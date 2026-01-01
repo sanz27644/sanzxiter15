@@ -1,0 +1,51 @@
+body{
+  background:#0f0f0f;
+  color:#fff;
+  font-family:Arial;
+  padding:20px;
+}
+
+h2{margin-bottom:20px}
+
+.box{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+select,button{
+  padding:10px;
+  border:none;
+  border-radius:10px;
+}
+
+button{
+  background:#0000ff;
+  color:#fff;
+  cursor:pointer;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#151515;
+}
+
+th,td{
+  padding:12px;
+  border-bottom:1px solid #222;
+  text-align:center;
+}
+
+.btn{
+  padding:6px 10px;
+  border:none;
+  border-radius:8px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.copy{background:#2ecc71;color:#000}
+.ban{background:#e74c3c;color:#fff}
+.unban{background:#3498db;color:#fff}
+.del{background:#555;color:#fff}
