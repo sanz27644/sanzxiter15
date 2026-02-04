@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Loading Screen</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #212121;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 24px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-box {
+  color: #ffffff;
+}
+
+.title-box h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.title-box span {
+  font-size: 14px;
+  color: #9e9e9e;
+}
+
+/* Right badge */
+.badge {
+  background: #00bcd4;
+  color: #fff;
+  padding: 10px 28px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ===== CENTER LOADER ===== */
+.center {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Loader */
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(255,255,255,0.2);
+  border-top: 5px solid #00e5ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Text */
+.text {
+  margin-top: 20px;
+  color: #bdbdbd;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP HEADER -->
+<div class="top-bar">
+  <div class="title-box">
+    <h1>NOVA TOOLS</h1>
+    <span>By Sanzxt</span>
+  </div>
+  <div class="badge" id="androidVersion">ANDROID</div>
+</div>
+
+<!-- CENTER LOADING -->
+<div class="center">
+  <div class="loader"></div>
+  <div class="text">LOADING...</div>
+</div>
+
+<script>
+function getAndroidVersion() {
+  const ua = navigator.userAgent;
+  const match = ua.match(/Android\s([0-9\.]+)/);
+  if (match) {
+    return "Android " + match[1];
+  }
+  return "Non-Android";
+}
+
+document.getElementById("androidVersion").textContent = getAndroidVersion();
+</script>
+
+</body>
+</html>
